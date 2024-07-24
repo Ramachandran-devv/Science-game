@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Animation and Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #2e8b57;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .question {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .submit-button, .next-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 15px;
+        }
+        .submit-button:hover, .next-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .next-button {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+        }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        .image-container img {
+            max-width: 40%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+        Q8. When an object obstructs the path of light, in which case is the light source less blocked?
+        </div>
+        <div class="image-container">
+            <img src="11.png" alt="Shadow formation">
+            <img src="12.png" alt="Shadow formation">
+
+        </div>
+        <div class="options">
+            <label><input type="radio" name="answer" value="A"> A) When the object is closer to the light</label>
+            <label><input type="radio" name="answer" value="B"> B) When the object is farther from the light</label>
+        </div>
+        <button class="submit-button" onclick="checkAnswer()">Submit</button>
+        <div id="explanation" class="explanation"></div>
+        <a href="question9.html" class="next-button">Next</a>
+    </div>
+    <script>
+        function checkAnswer() {
+            const explanation = document.getElementById('explanation');
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                if (selectedOption.value === 'B') {
+                    explanation.textContent = 'Correct! When the object is farther from the light source, it blocks less of the light that reaches the screen, resulting in a shadow that may be less clear and more diffused.';
+                    explanation.style.color = 'green';
+                } else {
+                    explanation.textContent = 'Incorrect. Try again!';
+                    explanation.style.color = 'red';
+                }
+                explanation.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

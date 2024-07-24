@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #2e8b57;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .question {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .submit-button, .next-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 15px;
+        }
+        .submit-button:hover, .next-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .next-button {
+      position: absolute;
+      bottom: 40px;
+      right: 20px;
+    }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        #animation {
+            position: relative;
+            width: 500px;
+            height: 250px;
+            margin: 0 auto;
+        }
+        .torch {
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/28/Torch-Spotlight.png');
+            background-size: cover;
+            left: 0;
+            top: 115px;
+            transform: rotate(90deg);
+            z-index: 1;
+        }
+        .object {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: blue;
+            border-radius: 50%;
+            top: 112.5px;
+            left: 310px;
+            cursor: pointer;
+            z-index: 3;
+        }
+        .screen {
+            position: absolute;
+            width: 50px;
+            height: 250px;
+            background-color: #ccc;
+            right: 0;
+            top: 0;
+            z-index: 2;
+        }
+        .shadow {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: black;
+            border-radius: 50%;
+            opacity: 0.5;
+            right: 12.5px;
+            top: 112.5px;
+            z-index: 2;
+        }
+        .light {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-right: 430px solid yellow;
+            bottom: 75px;
+            left: 25px;
+            opacity: 0.5;
+            transform-origin: bottom;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <span style="font-size: 0.8em;">Objective: Assess students' understanding of how moving an object closer to a light source affects the shadow's size, ensuring they can observe and explain that the shadow gets bigger as the object blocks more light.</span>
+            <br>
+            <br>
+            Q3: Move the object closer to the light source. What do you observe about the shadow?        <div id="animation">
+            <div class="torch"></div>
+            <div class="object"></div>
+            <div class="screen"></div>
+            <div class="shadow"></div>
+            <div class="light"></div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="answer" value="A">  A) The shadow gets smaller.</label>
+            <label><input type="radio" name="answer" value="B"> B) The shadow gets bigger. </label>
+            <label><input type="radio" name="answer" value="C"> C) The shadow stays the same size.</label>
+
+        </div>
+        <button class="submit-button" onclick="checkAnswer()">Submit</button>
+        <div id="explanation" class="explanation"></div>
+        <a href="question4.html" class="next-button">Next</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const object = document.querySelector('.object');
+            const shadow = document.querySelector('.shadow');
+            const light = document.querySelector('.light');
+
+            // Function to update shadow size based on object distance
+            function updateShadow(distance) {
+                const maxShadowSize = 50;
+                const minShadowSize = 25;
+                const shadowSize = maxShadowSize - ((distance / 450) * (maxShadowSize - minShadowSize));
+                gsap.to(shadow, {
+                    width: shadowSize,
+                    height: shadowSize,
+                    duration: 0.1
+                });
+            }
+
+            // Add drag functionality to the object
+            let isDragging = false;
+            let startX, startY;
+
+            object.addEventListener('mousedown', (event) => {
+                isDragging = true;
+                startX = event.clientX - object.offsetLeft;
+                startY = event.clientY - object.offsetTop;
+            });
+
+            document.addEventListener('mousemove', (event) => {
+                if (isDragging) {
+                    let newX = event.clientX - startX;
+                    newX = Math.max(0, Math.min(newX, 450)); // constrain within bounds horizontally
+                    object.style.left = newX + 'px';
+                    const distance = newX;
+                    updateShadow(distance);
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        });
+
+        function checkAnswer() {
+            const explanation = document.getElementById('explanation');
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                if (selectedOption.value === 'B') {
+                    explanation.textContent = 'Correct! The shadow will become bigger.As you move the object closer to the light source, you will notice the shadow gets bigger. This happens because the object blocks more of the light rays when its closer to the source, creating a larger area of shadow on the screen.';
+                    explanation.style.color = 'green';
+                } else {
+                    explanation.textContent = 'Incorrect. Try again!';
+                    explanation.style.color = 'red';
+                }
+                explanation.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

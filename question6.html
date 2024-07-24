@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Animation and Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #2e8b57;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .question {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .submit-button, .next-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 15px;
+        }
+        .submit-button:hover, .next-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .next-button {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+        }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        .image-container img {
+            max-width: 40%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <span style="font-size: 0.8em;">objective: Assess students' understanding that shadows form because light travels in straight lines and is blocked by objects like a ball. This demonstrates their comprehension of the nature of light and how it interacts with opaque objects to create shadows.</span>
+            <br>
+            <br>
+            Q6.Arun was shining a flashlight on a ball in a dark room and noticed that a shadow forms behind the ball. Why does this shadow form?
+        </div>
+        <div class="image-container">
+            <img src="image6.png" alt="Flashlight on a ball creating a shadow">
+        </div>
+        <div class="options">
+            <label><input type="radio" name="answer" value="A"> A) Because light bends around the ball, creating a dark area.</label>
+            <label><input type="radio" name="answer" value="B"> B) Because light travels in straight lines and is blocked by the ball.</label>
+            <label><input type="radio" name="answer" value="C"> C) Because the ball emits its own light, creating a shadow.</label>
+        </div>
+        <button class="submit-button" onclick="checkAnswer()">Submit</button>
+        <div id="explanation" class="explanation"></div>
+        <a href="question7.html" class="next-button">Next</a>
+    </div>
+    <script>
+        function checkAnswer() {
+            const explanation = document.getElementById('explanation');
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                if (selectedOption.value === 'B') {
+                    explanation.textContent = 'Correct! Because light travels in straight lines and is blocked by the ball. Light travels in straight lines, and when it encounters an opaque object like the ball, it cannot pass through. This creates a shadow on the side opposite the light source.';
+                    explanation.style.color = 'green';
+                } else {
+                    explanation.textContent = 'Incorrect. Try again!';
+                    explanation.style.color = 'red';
+                }
+                explanation.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

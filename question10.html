@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Animation and Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #2e8b57;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .question {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .option-image {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            width: 100px;
+            height: auto;
+        }
+        .option-text {
+            vertical-align: middle;
+        }
+        .submit-button, .next-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 15px;
+        }
+        .submit-button:hover, .next-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .next-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <span style="font-size: 0.8em;"> Objective: Evaluate students' ability to identify correct shadow formation by analyzing the placement of an object relative to a light source and a screen, ensuring understanding of light behavior and shadow creation principles.</span>
+            <br>
+            <br>
+            In which of the following situations is the shadow correctly formed based on where the object is placed?
+        </div>
+        <div class="options">
+            <label>
+                <input type="radio" name="answer" value="A">
+                <img src="1.png" alt="Correct shadow formation" class="option-image">
+            </label>
+            <label>
+                <input type="radio" name="answer" value="B">
+                <img src="LIGHT_BIIGGER_wrong2.png" alt="Incorrect shadow formation" class="option-image">
+            </label>
+            <label>
+                <input type="radio" name="answer" value="C">
+                <img src="LIGHT_BIIGGER_wrong1.png" alt="Incorrect shadow formation" class="option-image">
+            </label>
+        </div>
+        <button class="submit-button" onclick="checkAnswer()">Submit</button>
+        <div id="explanation" class="explanation"></div>
+        <a href="question11.html" class="next-button">Next</a>
+    </div>
+    <script>
+        function checkAnswer() {
+            const explanation = document.getElementById('explanation');
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                if (selectedOption.value === 'A') {
+                    explanation.textContent = 'Correct! The object blocks the light, creating an area on the screen where the light does not reach, which is the shadow. The light rays that are not blocked by the object continue to reach the screen, illuminating the areas around the shadow.';
+                    explanation.style.color = 'green';
+                } else {
+                    explanation.textContent = 'Incorrect. Try again!';
+                    explanation.style.color = 'red';
+                }
+                explanation.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

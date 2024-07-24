@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Animation and Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #2e8b57;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .question {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .submit-button, .next-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 15px;
+        }
+        .submit-button:hover, .next-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .next-button {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+        }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <span style="font-size: 0.8em;"> Objective: To assess students' understanding that shadows need a light source, so without light, like during a power cut at night, shadows disappear.</span>
+            <br>
+            <br>
+           Q7. Ratan saw that his shadow disappeared at night when there was a power cut in his home. What could be the reason behind it?
+        </div>
+        <div class="image-container">
+            <img src="image7.png" alt="No shadow during power cut">
+        </div>
+        <div class="options">
+            <label><input type="radio" name="answer" value="A"> A) Shadows only come out during the day.</label>
+            <label><input type="radio" name="answer" value="B"> B) The walls absorbed Ratan's shadow.</label>
+            <label><input type="radio" name="answer" value="C"> C) There was no light source to create a shadow.</label>
+        </div>
+        <button class="submit-button" onclick="checkAnswer()">Submit</button>
+        <div id="explanation" class="explanation"></div>
+        <a href="question8.html" class="next-button">Next</a>
+    </div>
+    <script>
+        function checkAnswer() {
+            const explanation = document.getElementById('explanation');
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (selectedOption) {
+                if (selectedOption.value === 'C') {
+                    explanation.textContent = 'Correct! There was no light source to create a shadow. Without a light source, there is no light to be blocked by an object, hence no shadow is formed.';
+                    explanation.style.color = 'green';
+                } else {
+                    explanation.textContent = 'Incorrect. Try again!';
+                    explanation.style.color = 'red';
+                }
+                explanation.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
